@@ -1,0 +1,16 @@
+version: '3.3'
+
+services:
+  ftp:
+    container_name: ftp
+    image: delfer/alpine-ftp-server
+    volumes:
+      - /home/joaoleite/examplefolder:/examplefolder
+      - ./vsftpd.conf:/etc/vsftpd/vsftpd.conf:ro
+    restart: unless-stopped
+    ports:
+      - "21:21"
+      - "21000-21010:21000-21010"
+    environment:
+      USERS: |
+        example|${PASSWORD_EXAMPLE}|/examplefolder
